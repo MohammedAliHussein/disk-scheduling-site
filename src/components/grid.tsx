@@ -2,13 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { circOut, motion } from "framer-motion";
 import * as d3 from "d3";
 
-const Grid = () => {
+const Grid = ({ diskRequests, cylinders }) => {
   const ELEMENT_DRAW_DURATION = 0.5;
   const ELEMENT_DRAW_DELAY = (i) => (ELEMENT_DRAW_DURATION * i) + 0.2;
 
   const grid = useRef(null);
-  const [diskRequests, setDiskRequests] = useState([53, 98, 183, 37, 122, 14, 124, 65, 67]);
-  const [cylinders, setCylinders] = useState(200);
   const [lines, setLines] = useState([[]]);
   const [circles, setCircles] = useState([]);
 
@@ -75,21 +73,28 @@ const Grid = () => {
 
   return (
     <svg ref={grid} id="grid" className="h-full w-10/12 min-h-[500px] min-w-[700px] grow">
-      { lines.map((line, i) => <motion.path key={i} d={line} fill="none" strokeDasharray={1} stroke="rgba(255,255,255,0.25)" 
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i) }}
-        /> ) }
-      { circles.map( (circle, i) => 
-        <motion.g
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i)  }}  
-        >
-          <circle key={circle} r="1.5" cx={circle[0]} cy={circle[1]} fill="white" stroke="white"/>
-          <text fill="white" fontSize={"0.6rem"} dx={circle[0] + 5} dy={circle[1]} >{diskRequests[i]}</text>
-        </motion.g> 
-      ) }
+      { 
+        lines.map((line, i) => 
+          <motion.path key={i} d={line} fill="none" strokeDasharray={1} stroke="rgba(255,255,255,0.4)" 
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i) }}
+          />
+        ) 
+      }
+      { 
+        circles.map( (circle, i) => 
+          <motion.g
+            key={circle}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i)  }}  
+          >
+            <circle key={circle} r="1.5" cx={circle[0]} cy={circle[1]} fill="white" stroke="white"/>
+            <text fill="white" fontSize={"0.6rem"} dx={circle[0] + 5} dy={circle[1]} >{diskRequests[i]}</text>
+          </motion.g> 
+        ) 
+      }
     </svg>
   );
 }

@@ -8,9 +8,10 @@ import Confirm from "./config/confirm";
 import Background from "./config/background";
 import Close from "./config/close";
 import Title from "./config/title";
+import { useState } from "react";
 
 
-const Config = ({ setConfigOpen, configOpen }) => {
+const Config = ({ setConfigOpen, configOpen, algorithm, setAlgorithm, direction, setDirection, setCylinders, setDiskRequests }) => {
   const handleClick = () => {
     setConfigOpen(!configOpen);
   }
@@ -26,10 +27,10 @@ const Config = ({ setConfigOpen, configOpen }) => {
       <div className="absolute z-10 flex flex-col gap-3 items-center justify-start outline outline-1 outline-[rgba(255,255,255,0.1)] w-[18rem] h-fit p-5 bg-[rgb(8,8,8)]">
         <Close handleClick={handleClick} />
         <Title />
-        <Algorithms />
-        <Direction />
-        <Cylinders />
-        <Requests />
+        <Algorithms algorithm={algorithm} setAlgorithm={setAlgorithm}/>
+        <Direction direction={direction} algorithm={algorithm} setDirection={setDirection}/>
+        <Cylinders setCylinders={setCylinders}/>
+        <Requests setDiskRequests={setDiskRequests}/>
         <Confirm />
       </div>
     </motion.div>
