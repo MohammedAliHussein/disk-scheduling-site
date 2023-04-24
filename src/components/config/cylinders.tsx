@@ -1,8 +1,4 @@
-import { useState } from "react";
-
-const Cylinders = () => {
-  const [cylinders, setCylinders] = useState(200);
-
+const Cylinders = ({ cylinders, setCylinders }) => {
   const verifyCylinders = (userInput) => {
     const regex = /^[0-9]*$/;
 

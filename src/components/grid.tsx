@@ -11,11 +11,8 @@ const Grid = ({ diskRequests, cylinders }) => {
   const [circles, setCircles] = useState([]);
 
   useEffect(() => {
-    const svg = grid.current;
-    const selection = d3.select(svg)
+    const selection = d3.select(grid.current)
     const max = grid.current.clientWidth - 10; 
-
-    selection.selectAll("line").remove(); //Clear from last render
 
     const x = d3.scaleLinear()
                 .domain([0, cylinders])
@@ -28,6 +25,7 @@ const Grid = ({ diskRequests, cylinders }) => {
 
     let _lines = [];
     let _circles = [];
+
     for (let i = 0; i < diskRequests.length; i++) { //Draw points and push positions for later animating 
       const totalWidth = max;
       const x = totalWidth * (diskRequests[i] / cylinders);
@@ -75,7 +73,7 @@ const Grid = ({ diskRequests, cylinders }) => {
     <svg ref={grid} id="grid" className="h-full w-10/12 min-h-[500px] min-w-[700px] grow">
       { 
         lines.map((line, i) => 
-          <motion.path key={i} d={line} fill="none" strokeDasharray={1} stroke="rgba(255,255,255,0.4)" 
+          <motion.path key={i} d={line} fill="none" strokeDasharray={1} stroke="rgba(255,255,255,0.4)"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i) }}
@@ -83,7 +81,7 @@ const Grid = ({ diskRequests, cylinders }) => {
         ) 
       }
       { 
-        circles.map( (circle, i) => 
+        circles.map((circle, i) => 
           <motion.g
             key={circle}
             initial={{ opacity: 0 }}

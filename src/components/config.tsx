@@ -1,4 +1,4 @@
-import { motion, circOut } from "framer-motion";
+import { motion } from "framer-motion";
 
 import Algorithms from "./config/algorithms";
 import Direction from "./config/direction";
@@ -8,12 +8,10 @@ import Confirm from "./config/confirm";
 import Background from "./config/background";
 import Close from "./config/close";
 import Title from "./config/title";
-import { useState } from "react";
 
-
-const Config = ({ setConfigOpen, configOpen, algorithm, setAlgorithm, direction, setDirection, setCylinders, setDiskRequests }) => {
+const Config = (props) => {
   const handleClick = () => {
-    setConfigOpen(!configOpen);
+    props.setConfigOpen(!props.configOpen);
   }
 
   return (
@@ -27,11 +25,11 @@ const Config = ({ setConfigOpen, configOpen, algorithm, setAlgorithm, direction,
       <div className="absolute z-10 flex flex-col gap-3 items-center justify-start outline outline-1 outline-[rgba(255,255,255,0.1)] w-[18rem] h-fit p-5 bg-[rgb(8,8,8)]">
         <Close handleClick={handleClick} />
         <Title />
-        <Algorithms algorithm={algorithm} setAlgorithm={setAlgorithm}/>
-        <Direction direction={direction} algorithm={algorithm} setDirection={setDirection}/>
-        <Cylinders setCylinders={setCylinders}/>
-        <Requests setDiskRequests={setDiskRequests}/>
-        <Confirm />
+        <Algorithms algorithm={props.algorithm} setAlgorithm={props.setAlgorithm}/>
+        <Direction direction={props.direction} algorithm={props.algorithm} setDirection={props.setDirection}/>
+        <Cylinders cylinders={props.cylinders} setCylinders={props.setCylinders}/>
+        <Requests diskRequests={props.diskRequests} setDiskRequests={props.setDiskRequests}/>
+        <Confirm handleConfirmConfig={props.handleConfirmConfig}/>
       </div>
     </motion.div>
   );
