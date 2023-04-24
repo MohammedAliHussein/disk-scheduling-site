@@ -12,6 +12,9 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      transitionTimingFunction: {
+        'out-circ': 'cubic-bezier(0, 0.55, 0.45, 1)'
+      }
     },
   },
   plugins: [],
