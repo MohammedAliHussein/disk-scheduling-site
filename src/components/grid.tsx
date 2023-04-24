@@ -75,17 +75,21 @@ const Grid = () => {
 
   return (
     <svg ref={grid} id="grid" className="h-full w-10/12 min-h-[500px] min-w-[700px] grow">
-      { lines.map((line, i) => <motion.path d={line} fill="none" strokeDasharray={1} stroke="rgba(255,255,255,0.25)" 
+      { lines.map((line, i) => <motion.path key={i} d={line} fill="none" strokeDasharray={1} stroke="rgba(255,255,255,0.25)" 
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
         transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i) }}
         /> ) }
       { circles.map( (circle, i) => 
-        <motion.circle r="1.5" cx={circle[0]} cy={circle[1]} fill="white" stroke="white"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i)  }}      
-        /> ) }
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: ELEMENT_DRAW_DURATION, ease: circOut, delay: ELEMENT_DRAW_DELAY(i)  }}  
+        >
+          <circle key={circle} r="1.5" cx={circle[0]} cy={circle[1]} fill="white" stroke="white"/>
+          <text fill="white" fontSize={"0.6rem"} dx={circle[0] + 5} dy={circle[1]} >{diskRequests[i]}</text>
+        </motion.g> 
+      ) }
     </svg>
   );
 }
