@@ -29,6 +29,7 @@ const Seektime = () => {
     for (let i = 1; i < diskRequests.length; i++) {
       result += Math.abs(diskRequests[i] - diskRequests[i - 1])
     }
+
     setSeekTime(result);
   }, [diskRequests])
 
@@ -38,7 +39,7 @@ const Seektime = () => {
     try {
       const result = (new DiskScheduler({ 
         selected_algorithm: _algorithm, 
-        disk_requests: cleanDiskRequests(), 
+        disk_requests: _diskRequests, 
         head_direction: _direction, 
         cylinders: _cylinders 
       })).performCalculation();
@@ -49,12 +50,8 @@ const Seektime = () => {
       setReset(true)
       setTimeout(() => { setReset(false) }, 1); //this works?
     } catch(error) {
-      console.log(error);
+      // console.log(error);
     }
-  }
-
-  const cleanDiskRequests = () => {
-    return _diskRequests.split(",").filter(element => element.length > 0); 
   }
 
   return (
