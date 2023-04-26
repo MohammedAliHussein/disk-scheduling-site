@@ -3,6 +3,7 @@ import { circOut, motion } from "framer-motion";
 import * as d3 from "d3";
 
 const Grid = ({ diskRequests, cylinders, reset }) => {
+  const BOUNDARY_MARGIN = 20;
   const ELEMENT_DRAW_DURATION = 0.5;
   const ELEMENT_DRAW_DELAY = (i: Number) => (ELEMENT_DRAW_DURATION * i) + 0.2;
 
@@ -15,15 +16,15 @@ const Grid = ({ diskRequests, cylinders, reset }) => {
 
   useEffect(() => {
     const svg = d3.select(ref.current);
-    const max = ref.current.clientWidth - 10; 
+    const end = ref.current.clientWidth - BOUNDARY_MARGIN; 
 
     clearData(svg);
 
-    const axis = d3.scaleLinear().domain([0, cylinders]).range([10, max]);
+    const axis = d3.scaleLinear().domain([0, cylinders]).range([BOUNDARY_MARGIN, end]);
 
-    const guides = createGuides(max); 
-    const points = createPoints(max);
-    const lines = createLines(max);
+    const guides = createGuides(end); 
+    const points = createPoints(end);
+    const lines = createLines(end);
 
     appendAxis(axis, svg);
     setPoints(points);
@@ -37,41 +38,47 @@ const Grid = ({ diskRequests, cylinders, reset }) => {
   }
 
   const appendAxis = (axis, svg) => {
-    svg.append("g").attr("class", "axis").style("color", "white").call(d3.axisBottom(axis));
+    svg.append("g").attr("class", "axis").style("color", "white").style("opacity", "0.8").call(d3.axisBottom(axis));
   }
 
-  const createGuides = (max) => {
+  const createGuides = (end) => {
     const guides = [];
 
     for (let i = 0; i < diskRequests.length; i++) { 
-      const x = max * (diskRequests[i] / cylinders);
+      const x = end * (diskRequests[i] / cylinders);
       const y = (((ref.current.clientHeight - 30) / diskRequests.length) * i) + 30;
-      const guide = [[10, y], [max, y]]
+      const guide = [[BOUNDARY_MARGIN, y], [end, y]]
       guides.push(guide);
     }
 
     return guides;
   }
 
-  const createPoints = (max) => {
+  const createPoints = (end) => {
     const points = [];
 
     for (let i = 0; i < diskRequests.length; i++) { 
-      const x = max * (diskRequests[i] / cylinders);
+      let x = (end * (diskRequests[i] / cylinders));
       const y = (((ref.current.clientHeight - 30) / diskRequests.length) * i) + 30;
+
+      if (x < BOUNDARY_MARGIN) x = BOUNDARY_MARGIN; 
+
       points.push([x, y])
     }
 
     return points;
   }
 
-  const createLines = (max) => {
+  const createLines = (end) => {
     const lines = [];
     const individuals = [];
 
     for (let i = 0; i < diskRequests.length; i++) { 
-      const x = max * (diskRequests[i] / cylinders);
+      let x = end * (diskRequests[i] / cylinders);
       const y = (((ref.current.clientHeight - 30) / diskRequests.length) * i) + 30;
+
+      if (x < BOUNDARY_MARGIN) x = BOUNDARY_MARGIN; 
+
       lines.push([x, y])
     }
 

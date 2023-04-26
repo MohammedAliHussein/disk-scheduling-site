@@ -13,8 +13,6 @@ const Seektime = () => {
   const [configOpen, setConfigOpen] = useState<Boolean>(false);
   const [reset, setReset] = useState(false);
 
-  const [algorithm, setAlgorithm] = useState("FCFS");
-  const [direction, setDirection] = useState(null);
   const [cylinders, setCylinders] = useState<Number>(200);
   const [diskRequests, setDiskRequests] = useState<Number[]>([53, 98, 183, 37, 122, 14, 124, 65, 67]);
 
@@ -36,8 +34,6 @@ const Seektime = () => {
       cylinders: _cylinders 
     })).performCalculation();
 
-    setAlgorithm(_algorithm);
-    setDirection(_direction);
     setCylinders(_cylinders);
     setDiskRequests(result);
 
