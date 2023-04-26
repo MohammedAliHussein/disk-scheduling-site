@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 const Requests = ({ diskRequests, setDiskRequests }) => {
-  // const [diskRequests, setDiskRequests] = useState("53,98,183,37,122,14,124,65,67");
-
   const verifyUserDiskRequests = (userInput) => {
     const regex = /^[\,0-9]*$/;
     return userInput.match(regex);

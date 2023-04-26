@@ -19,7 +19,7 @@ const Seektime = () => {
   const [_algorithm, _setAlgorithm] = useState("FCFS");
   const [_direction, _setDirection] = useState(null);
   const [_cylinders, _setCylinders] = useState<Number>(200);
-  const [_diskRequests, _setDiskRequests] = useState<Number[]>([53, 98, 183, 37, 122, 14, 124, 65, 67]);
+  const [_diskRequests, _setDiskRequests] = useState([53, 98, 183, 37, 122, 14, 124, 65, 67]);
 
   const [seekTime, setSeekTime] = useState<Number>(640);
 
@@ -33,13 +33,12 @@ const Seektime = () => {
   }, [diskRequests])
 
   const handleConfirmConfig = () => {
-    setReset(true)
     setConfigOpen(false);
 
     try {
-      let result = (new DiskScheduler({ 
+      const result = (new DiskScheduler({ 
         selected_algorithm: _algorithm, 
-        disk_requests: _diskRequests, 
+        disk_requests: cleanDiskRequests(), 
         head_direction: _direction, 
         cylinders: _cylinders 
       })).performCalculation();
@@ -47,12 +46,15 @@ const Seektime = () => {
       setCylinders(_cylinders);
       setDiskRequests(result);
 
-      setTimeout(() => {
-        setReset(false);
-      }, 1);
+      setReset(true)
+      setTimeout(() => { setReset(false) }, 1); //this works?
     } catch(error) {
       console.log(error);
     }
+  }
+
+  const cleanDiskRequests = () => {
+    return _diskRequests.split(",").filter(element => element.length > 0); 
   }
 
   return (
