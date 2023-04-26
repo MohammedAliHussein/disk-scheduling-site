@@ -11,6 +11,7 @@ import Disclaimer from "./disclaimer";
 
 const Seektime = () => {
   const [configOpen, setConfigOpen] = useState<Boolean>(false);
+  const [reset, setReset] = useState(false);
 
   const [algorithm, setAlgorithm] = useState("FCFS");
   const [direction, setDirection] = useState(null);
@@ -25,6 +26,7 @@ const Seektime = () => {
   const [seekTime, setSeekTime] = useState<Number>(640);
 
   const handleConfirmConfig = () => {
+    setReset(true)
     setConfigOpen(false);
 
     let result = (new DiskScheduler({ 
@@ -38,6 +40,10 @@ const Seektime = () => {
     setDirection(_direction);
     setCylinders(_cylinders);
     setDiskRequests(result);
+
+    setTimeout(() => {
+      setReset(false);
+    }, 1)
   }
 
   return (
@@ -46,7 +52,7 @@ const Seektime = () => {
       <Title />
       <Open setConfigOpen={setConfigOpen} configOpen={configOpen} />
       <Result seekTime={seekTime} />
-      <Grid diskRequests={diskRequests} cylinders={cylinders} />
+      <Grid diskRequests={diskRequests} cylinders={cylinders} reset={reset} />
       <AnimatePresence>
         { 
           configOpen 
