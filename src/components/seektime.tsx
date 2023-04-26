@@ -23,23 +23,36 @@ const Seektime = () => {
 
   const [seekTime, setSeekTime] = useState<Number>(640);
 
+  useEffect(() => {
+    let result = 0;
+
+    for (let i = 1; i < diskRequests.length; i++) {
+      result += Math.abs(diskRequests[i] - diskRequests[i - 1])
+    }
+    setSeekTime(result);
+  }, [diskRequests])
+
   const handleConfirmConfig = () => {
     setReset(true)
     setConfigOpen(false);
 
-    let result = (new DiskScheduler({ 
-      selected_algorithm: _algorithm, 
-      disk_requests: _diskRequests, 
-      head_direction: _direction, 
-      cylinders: _cylinders 
-    })).performCalculation();
+    try {
+      let result = (new DiskScheduler({ 
+        selected_algorithm: _algorithm, 
+        disk_requests: _diskRequests, 
+        head_direction: _direction, 
+        cylinders: _cylinders 
+      })).performCalculation();
 
-    setCylinders(_cylinders);
-    setDiskRequests(result);
+      setCylinders(_cylinders);
+      setDiskRequests(result);
 
-    setTimeout(() => {
-      setReset(false);
-    }, 1)
+      setTimeout(() => {
+        setReset(false);
+      }, 1);
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   return (

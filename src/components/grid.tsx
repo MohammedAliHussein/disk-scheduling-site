@@ -96,7 +96,7 @@ const Grid = ({ diskRequests, cylinders, reset }) => {
   }
 
   return (
-    <svg ref={ref} id="grid" className="h-full w-10/12 min-h-[500px] min-w-[700px] grow">
+    <svg ref={ref} id="grid" className="h-full w-11/12 min-h-[500px] min-w-[700px] grow">
       {
         !reset 
         && 
