@@ -1,17 +1,24 @@
+const fs = require("fs");
+const path = require("path");
+
 // server.js
-const { createServer } = require('http')
+const { createServer } = require('https')
 const { parse } = require('url')
 const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
-const port = 3000
+const port = 443
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
+const KEY = fs.readFileSync(path.join(path.resolve(), "../ssl/seektime.app.key"));
+const CERT = fs.readFileSync(path.join(path.resolve(), "../ssl/seektime.app.crt"));
+const CA = fs.readFileSync(path.join(path.resolve(), "../ssl/seektime.app.ca-bundle"));
+
 app.prepare().then(() => {
-  createServer(async (req, res) => {
+  createServer({ key: KEY, cert: CERT, ca: CA }, async (req, res) => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
@@ -36,6 +43,6 @@ app.prepare().then(() => {
       process.exit(1)
     })
     .listen(port, () => {
-      console.log(`> Ready on http://${hostname}:${port}`)
+      console.log(`> Ready on https://${hostname}:${port}`)
     })
 })

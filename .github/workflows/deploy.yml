@@ -1,0 +1,25 @@
+name: Deploy 
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          kill -9 $(pgrep -f 'node server.js')
+          rm -rf seektime.app
+          git clone https://github.com/MohammedAliHussein/seektime.app.git
+          nohup seektime.app/server.js &
