@@ -18,8 +18,9 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        script: |
-          pkill -f node
-          rm -rf seektime.app
-          git clone https://github.com/MohammedAliHussein/seektime.app.git
-          nohup seektime.app/server.js &
+        run: touch a.txt
+        # script: |
+        #   pkill -f node
+        #   rm -rf seektime.app
+        #   git clone https://github.com/MohammedAliHussein/seektime.app.git
+        #   nohup seektime.app/server.js &
