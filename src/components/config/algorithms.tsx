@@ -7,7 +7,7 @@ const Algorithms = ({ algorithm, setAlgorithm }) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-white text-center font-extrabold">Algorithms</p>
+      <p className="text-white text-center font-bold">Algorithms</p>
       <div className="flex flex-wrap gap-2 justify-center">
         { algorithms.map(currentAlgorithm => { 
             if (algorithm === currentAlgorithm) {

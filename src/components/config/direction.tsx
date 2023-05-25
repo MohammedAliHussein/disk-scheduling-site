@@ -19,7 +19,7 @@ const Direction = ({ direction, setDirection, algorithm }) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-white text-center font-extrabold">Head Direction</p>
+      <p className="text-white text-center font-bold">Head Direction</p>
       <div className="flex flex-wrap gap-2 justify-center">
         { headDirections.map(headDirection => {
           if (headDirection === direction) {

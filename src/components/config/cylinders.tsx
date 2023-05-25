@@ -15,7 +15,7 @@ const Cylinders = ({ cylinders, setCylinders }) => {
 
   return (
     <div className="flex flex-col gap-3 w-9/12">
-      <p className="text-white text-center font-extrabold">Cylinders</p>
+      <p className="text-white text-center font-bold">Cylinders</p>
       <div className="flex flex-wrap gap-2 justify-center">
         <input value={cylinders} onChange={handleCylinderChange} className="bg-transparent outline outline-1 outline-[rgba(255,255,255,0.1)] text-white text-center text-[0.8rem] p-1 w-full"/>
       </div>
