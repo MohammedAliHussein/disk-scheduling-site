@@ -6,7 +6,7 @@ const { createServer } = require('https')
 const { parse } = require('url')
 const next = require('next')
 
-const dev = process.env.NODE_ENV !== 'production'
+const dev = false 
 const hostname = 'localhost'
 const port = 443
 // when using middleware `hostname` and `port` must be provided below

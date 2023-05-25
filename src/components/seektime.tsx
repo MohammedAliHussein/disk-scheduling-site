@@ -49,13 +49,11 @@ const Seektime = () => {
 
       setReset(true)
       setTimeout(() => { setReset(false) }, 1); //this works?
-    } catch(error) {
-      // console.log(error);
-    }
+    } catch(error) { }
   }
 
   return (
-    <div className="min-h-screen w-full min-w-fit flex flex-col items-center justify-center px-56 py-10 gap-5 bg-neutral-950">
+    <div className="min-h-screen w-full min-w-fit flex flex-col items-center justify-center px-[15vw] py-10 gap-5 bg-neutral-950">
       <Disclaimer />
       <Title />
       <Open setConfigOpen={setConfigOpen} configOpen={configOpen} />
