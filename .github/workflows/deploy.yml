@@ -20,6 +20,14 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         run: pkill -f node
 
+    - name: Remove old files 
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        run: rm -rf seektime.app/
+
     - name: Download, install and build
       uses: appleboy/ssh-action@master
       with:
@@ -27,7 +35,6 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          rm -rf seektime.app
           git clone https://github.com/MohammedAliHussein/seektime.app.git
           cd seektime.app/
           npm install
