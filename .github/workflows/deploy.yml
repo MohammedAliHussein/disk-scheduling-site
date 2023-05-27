@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          sudo pkill -f node
+          pkill -f node
           rm -rf seektime.app
           git clone https://github.com/MohammedAliHussein/seektime.app.git
           cd seektime.app/
