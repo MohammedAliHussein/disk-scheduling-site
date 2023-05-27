@@ -34,3 +34,4 @@ jobs:
           npm run build
           chmod +x server.js
           nohup node server.js &
+          exit
