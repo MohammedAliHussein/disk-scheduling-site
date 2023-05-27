@@ -14,8 +14,6 @@ export default function Document() {
         <Main />
         <NextScript />
         {
-          false 
-          &&
           <>
             <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-CV1QCHS4G2"></Script>
             <Script id='ga-tracking' strategy='afterInteractive'>
