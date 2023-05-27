@@ -29,7 +29,6 @@ jobs:
         script: |
           rm -rf seektime.app
           git clone https://github.com/MohammedAliHussein/seektime.app.git
-          cd seektime.app/
 
     - name: Install
       uses: appleboy/ssh-action@master
@@ -37,7 +36,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        run: npm install
+        run: cd seektime.app/ && npm install
 
     - name: Build
       uses: appleboy/ssh-action@master
@@ -46,6 +45,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         script: |
+          cd seektime.app/
           npm run build
           chmod +x server.js
 
@@ -55,4 +55,4 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        run: nohup node server.js &
+        run: cd seektime.app/ && nohup node server.js &
