@@ -20,7 +20,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         run: pkill -f node
 
-    - name: Run new server
+    - name: Clone 
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -32,4 +32,11 @@ jobs:
           cd seektime.app/
           npm run build
           chmod +x server.js
-          nohup node server.js &
+
+    - name: Start server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        run: nohup node server.js &
