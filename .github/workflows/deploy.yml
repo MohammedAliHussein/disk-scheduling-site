@@ -12,7 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Kill
+    - name: Kill old server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -20,7 +20,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         run: pkill -f node
 
-    - name: Download
+    - name: Download, install and build
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -30,29 +30,14 @@ jobs:
           rm -rf seektime.app
           git clone https://github.com/MohammedAliHussein/seektime.app.git
           cd seektime.app/
-
-    - name: Install
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        run: npm install
-
-    - name: Build
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
+          npm install
           npm run build
           chmod +x server.js
 
-    - name: Run
+    - name: Run 
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        run: nohup node server.js &
+        run: cd seektime.app/ && nohup node server.js & 
