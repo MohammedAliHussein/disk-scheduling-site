@@ -1,5 +1,5 @@
-import Seektime from "@/components/seektime";
+import Seektime from '@/components/seektime';
 
 export default function Home() {
-  return ( <Seektime /> );
+  return <Seektime />;
 }

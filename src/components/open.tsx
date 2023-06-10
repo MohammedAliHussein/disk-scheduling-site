@@ -1,8 +1,11 @@
 const Open = ({ setConfigOpen, configOpen }) => {
-  const handleClick = () => { setConfigOpen(!configOpen); }
+  const handleClick = () => {
+    setConfigOpen(!configOpen);
+  };
 
   return (
-    <p onClick={handleClick} 
+    <p
+      onClick={handleClick}
       className="
         text-[rgb(255,255,255)] 
         text-[0.7rem] 
@@ -20,6 +23,6 @@ const Open = ({ setConfigOpen, configOpen }) => {
       Configure Scheduler
     </p>
   );
-}
+};
 
 export default Open;
