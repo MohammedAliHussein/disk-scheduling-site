@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import Terms from './donation/terms.of.service';
 import { AnimatePresence } from 'framer-motion';
+
+import Terms from './donation/terms.of.service';
 
 const Donation = () => {
   const [showingTerms, setShowingTerms] = useState<boolean>(false);

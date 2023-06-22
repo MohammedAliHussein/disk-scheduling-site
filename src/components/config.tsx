@@ -24,7 +24,7 @@ const Config = props => {
       <Background handleClick={handleClick} />
       <div className="absolute z-10 flex flex-col gap-3 items-center justify-start outline outline-1 outline-[rgba(255,255,255,0.1)] w-[18rem] h-fit p-5 bg-[rgb(8,8,8)]">
         <Close handleClick={handleClick} />
-        <Title />
+        <Title title={'Scheduler Configuration'} />
         <Algorithms
           algorithm={props.algorithm}
           setAlgorithm={props.setAlgorithm}
