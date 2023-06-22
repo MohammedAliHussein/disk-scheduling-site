@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
-import Terms from './donation/terms.of.service';
+import Modal from './donation/modal';
 
 const Donation = () => {
   const [showingTerms, setShowingTerms] = useState<boolean>(false);
@@ -13,7 +13,7 @@ const Donation = () => {
   return (
     <>
       <AnimatePresence>
-        {showingTerms && <Terms handleClick={handleClick} />}
+        {showingTerms && <Modal handleClick={handleClick} />}
       </AnimatePresence>
       <p
         className="
