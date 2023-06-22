@@ -5,9 +5,9 @@ import Direction from './config/direction';
 import Cylinders from './config/cylinders';
 import Requests from './config/requests';
 import Confirm from './config/confirm';
-import Background from './config/background';
-import Close from './config/close';
-import Title from './config/title';
+import Background from './shared/background';
+import Close from './shared/close';
+import Title from './shared/title';
 
 const Config = props => {
   const handleClick = () => {
