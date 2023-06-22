@@ -8,6 +8,7 @@ import Config from './config';
 import Result from './result';
 import Grid from './grid';
 import Disclaimer from './disclaimer';
+import Donation from './donation';
 
 const Seektime = () => {
   const [configOpen, setConfigOpen] = useState<Boolean>(false);
@@ -82,6 +83,7 @@ const Seektime = () => {
           />
         )}
       </AnimatePresence>
+      <Donation />
     </div>
   );
 };
