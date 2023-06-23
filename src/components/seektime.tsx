@@ -9,6 +9,7 @@ import Result from './result';
 import Grid from './grid';
 import Disclaimer from './disclaimer';
 import Donation from './donation';
+import Popup from './popup';
 
 const Seektime = () => {
   const [configOpen, setConfigOpen] = useState<Boolean>(false);
@@ -27,6 +28,7 @@ const Seektime = () => {
   ]);
 
   const [seekTime, setSeekTime] = useState<Number>(640);
+  const [showingPopup, setShowingPopup] = useState<boolean>(true);
 
   useEffect(() => {
     let result = 0;
@@ -59,6 +61,10 @@ const Seektime = () => {
     } catch (error) {}
   };
 
+  const handleShowingPopup = () => {
+    setShowingPopup(!showingPopup);
+  };
+
   return (
     <div className="min-h-screen w-full min-w-fit flex flex-col items-center justify-center px-[15vw] py-10 gap-5 bg-neutral-950">
       <Disclaimer />
@@ -82,6 +88,7 @@ const Seektime = () => {
             handleConfirmConfig={handleConfirmConfig}
           />
         )}
+        {showingPopup && <Popup handleShowingPopup={handleShowingPopup} />}
       </AnimatePresence>
       <Donation />
     </div>
