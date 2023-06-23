@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import Title from './shared/title';
 import Close from './shared/close';
 import Message from './popup/message';
-import Understood from './popup/understood';
 import Background from './shared/background';
 
 const Popup = props => {
@@ -19,7 +18,6 @@ const Popup = props => {
         <Close handleClick={props.handleShowingPopup} />
         <Title title={'Now Accepting Donations!'} />
         <Message />
-        <Understood handleClick={props.handleShowingPopup} />
       </div>
     </motion.div>
   );

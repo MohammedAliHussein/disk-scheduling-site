@@ -12,6 +12,8 @@ import Donation from './donation';
 import Popup from './popup';
 
 const Seektime = () => {
+  const POPUP_COOKIE: string = 'seektime.app.donation.popup';
+
   const [configOpen, setConfigOpen] = useState<Boolean>(false);
   const [reset, setReset] = useState(false);
 
@@ -40,6 +42,16 @@ const Seektime = () => {
     setSeekTime(result);
   }, [diskRequests]);
 
+  useEffect(() => {
+    const cookie: string | null = localStorage.getItem(POPUP_COOKIE);
+
+    if (cookie === null) {
+      setShowingPopup(true);
+    } else {
+      setShowingPopup(false);
+    }
+  }, []);
+
   const handleConfirmConfig = () => {
     setConfigOpen(false);
 
@@ -63,6 +75,7 @@ const Seektime = () => {
 
   const handleShowingPopup = () => {
     setShowingPopup(!showingPopup);
+    localStorage.setItem(POPUP_COOKIE, 'false');
   };
 
   return (
