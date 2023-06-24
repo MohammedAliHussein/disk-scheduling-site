@@ -18,6 +18,9 @@ const Seektime = () => {
     53, 98, 183, 37, 122, 14, 124, 65, 67,
   ]);
 
+  const [animate, setAnimate] = useState<boolean>(true);
+  const [_animate, _setAnimate] = useState<boolean>(true);
+
   const [_algorithm, _setAlgorithm] = useState('FCFS');
   const [_direction, _setDirection] = useState(null);
   const [_cylinders, _setCylinders] = useState<Number>(200);
@@ -50,6 +53,7 @@ const Seektime = () => {
 
       setCylinders(_cylinders);
       setDiskRequests(result);
+      setAnimate(_animate);
 
       setReset(true);
       setTimeout(() => {
@@ -64,7 +68,12 @@ const Seektime = () => {
       <Title />
       <Open setConfigOpen={setConfigOpen} configOpen={configOpen} />
       <Result seekTime={seekTime} />
-      <Grid diskRequests={diskRequests} cylinders={cylinders} reset={reset} />
+      <Grid
+        diskRequests={diskRequests}
+        cylinders={cylinders}
+        reset={reset}
+        animate={animate}
+      />
       <AnimatePresence>
         {configOpen && (
           <Config
@@ -78,6 +87,8 @@ const Seektime = () => {
             setCylinders={_setCylinders}
             diskRequests={_diskRequests}
             setDiskRequests={_setDiskRequests}
+            animate={_animate}
+            setAnimate={_setAnimate}
             handleConfirmConfig={handleConfirmConfig}
           />
         )}
