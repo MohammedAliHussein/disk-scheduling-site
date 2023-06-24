@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { circOut, motion } from 'framer-motion';
 import * as d3 from 'd3';
 
-const Grid = ({ diskRequests, cylinders, reset }) => {
+const Grid = ({ diskRequests, cylinders, reset, animate }) => {
   const BOUNDARY_MARGIN = 20;
   const ELEMENT_DRAW_DURATION = 0.5;
   const ELEMENT_DRAW_DELAY = (i: Number) => ELEMENT_DRAW_DURATION * i + 0.2;
@@ -124,53 +124,84 @@ const Grid = ({ diskRequests, cylinders, reset }) => {
               y2={guide[1][1]}
             />
           ))}
-          {points.map((point, i) => (
-            <motion.g
-              id="point-g"
-              key={point}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: ELEMENT_DRAW_DURATION,
-                ease: circOut,
-                delay: ELEMENT_DRAW_DELAY(i),
-              }}
-            >
-              <circle
+          {points.map((point, i) =>
+            animate === true ? (
+              <motion.g
+                id="point-g"
                 key={point}
-                r="1.5"
-                cx={point[0]}
-                cy={point[1]}
-                fill="white"
-                stroke="white"
-              />
-              <text
-                fill="white"
-                fontSize={'0.6rem'}
-                dx={point[0] + 5}
-                dy={point[1]}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: ELEMENT_DRAW_DURATION,
+                  ease: circOut,
+                  delay: ELEMENT_DRAW_DELAY(i),
+                }}
               >
-                {diskRequests[i]}
-              </text>
-            </motion.g>
-          ))}
-          {lines.map((line, i) => (
-            <motion.path
-              key={i}
-              d={line}
-              fill="none"
-              strokeDasharray={1}
-              stroke="rgba(255,255,255,0.4)"
-              id="line-path"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{
-                duration: ELEMENT_DRAW_DURATION,
-                ease: circOut,
-                delay: ELEMENT_DRAW_DELAY(i),
-              }}
-            />
-          ))}
+                <circle
+                  key={point}
+                  r="1.5"
+                  cx={point[0]}
+                  cy={point[1]}
+                  fill="white"
+                  stroke="white"
+                />
+                <text
+                  fill="white"
+                  fontSize={'0.6rem'}
+                  dx={point[0] + 5}
+                  dy={point[1]}
+                >
+                  {diskRequests[i]}
+                </text>
+              </motion.g>
+            ) : (
+              <g id="point-g" key={point}>
+                <circle
+                  key={point}
+                  r="1.5"
+                  cx={point[0]}
+                  cy={point[1]}
+                  fill="white"
+                  stroke="white"
+                />
+                <text
+                  fill="white"
+                  fontSize={'0.6rem'}
+                  dx={point[0] + 5}
+                  dy={point[1]}
+                >
+                  {diskRequests[i]}
+                </text>
+              </g>
+            ),
+          )}
+          {lines.map((line, i) =>
+            animate === true ? (
+              <motion.path
+                key={i}
+                d={line}
+                fill="none"
+                strokeDasharray={1}
+                stroke="rgba(255,255,255,0.4)"
+                id="line-path"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{
+                  duration: ELEMENT_DRAW_DURATION,
+                  ease: circOut,
+                  delay: ELEMENT_DRAW_DELAY(i),
+                }}
+              />
+            ) : (
+              <path
+                key={i}
+                d={line}
+                fill="none"
+                stroke="rgba(255,255,255,0.4)"
+                id="line-path"
+              />
+            ),
+          )}
         </>
       )}
     </svg>
