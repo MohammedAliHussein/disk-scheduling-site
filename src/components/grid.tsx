@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { circOut, motion } from 'framer-motion';
 import * as d3 from 'd3';
+import Lines from './grid/lines';
+import Points from './grid/points';
+import Guides from './grid/guides';
 
 const Grid = ({ diskRequests, cylinders, reset, animate }) => {
   const BOUNDARY_MARGIN = 20;
@@ -111,97 +113,20 @@ const Grid = ({ diskRequests, cylinders, reset, animate }) => {
     <svg ref={ref} id="grid" className="h-full w-11/12 grow">
       {!reset && (
         <>
-          {guides.map(guide => (
-            <line
-              key={guide[0][1]}
-              stroke="white"
-              strokeDasharray={'3px, 3px'}
-              strokeWidth={'1px'}
-              opacity={'0.1'}
-              x1={guide[0][0]}
-              y1={guide[0][1]}
-              x2={guide[1][0]}
-              y2={guide[1][1]}
-            />
-          ))}
-          {points.map((point, i) =>
-            animate === true ? (
-              <motion.g
-                id="point-g"
-                key={point}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: ELEMENT_DRAW_DURATION,
-                  ease: circOut,
-                  delay: ELEMENT_DRAW_DELAY(i),
-                }}
-              >
-                <circle
-                  key={point}
-                  r="1.5"
-                  cx={point[0]}
-                  cy={point[1]}
-                  fill="white"
-                  stroke="white"
-                />
-                <text
-                  fill="white"
-                  fontSize={'0.6rem'}
-                  dx={point[0] + 5}
-                  dy={point[1]}
-                >
-                  {diskRequests[i]}
-                </text>
-              </motion.g>
-            ) : (
-              <g id="point-g" key={point}>
-                <circle
-                  key={point}
-                  r="1.5"
-                  cx={point[0]}
-                  cy={point[1]}
-                  fill="white"
-                  stroke="white"
-                />
-                <text
-                  fill="white"
-                  fontSize={'0.6rem'}
-                  dx={point[0] + 5}
-                  dy={point[1]}
-                >
-                  {diskRequests[i]}
-                </text>
-              </g>
-            ),
-          )}
-          {lines.map((line, i) =>
-            animate === true ? (
-              <motion.path
-                key={i}
-                d={line}
-                fill="none"
-                strokeDasharray={1}
-                stroke="rgba(255,255,255,0.4)"
-                id="line-path"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{
-                  duration: ELEMENT_DRAW_DURATION,
-                  ease: circOut,
-                  delay: ELEMENT_DRAW_DELAY(i),
-                }}
-              />
-            ) : (
-              <path
-                key={i}
-                d={line}
-                fill="none"
-                stroke="rgba(255,255,255,0.4)"
-                id="line-path"
-              />
-            ),
-          )}
+          <Guides guides={guides} />
+          <Points
+            points={points}
+            animate={animate}
+            ELEMENT_DRAW_DELAY={ELEMENT_DRAW_DELAY}
+            ELEMENT_DRAW_DURATION={ELEMENT_DRAW_DURATION}
+            diskRequests={diskRequests}
+          />
+          <Lines
+            lines={lines}
+            animate={animate}
+            ELEMENT_DRAW_DELAY={ELEMENT_DRAW_DELAY}
+            ELEMENT_DRAW_DURATION={ELEMENT_DRAW_DURATION}
+          />
         </>
       )}
     </svg>
