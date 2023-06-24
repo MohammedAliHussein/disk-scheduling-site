@@ -8,6 +8,7 @@ import Confirm from './config/confirm';
 import Background from './config/background';
 import Close from './config/close';
 import Title from './config/title';
+import Animate from './config/animate';
 
 const Config = props => {
   const handleClick = () => {
@@ -34,6 +35,7 @@ const Config = props => {
           algorithm={props.algorithm}
           setDirection={props.setDirection}
         />
+        <Animate animate={props.animate} setAnimate={props.setAnimate} />
         <Cylinders
           cylinders={props.cylinders}
           setCylinders={props.setCylinders}
