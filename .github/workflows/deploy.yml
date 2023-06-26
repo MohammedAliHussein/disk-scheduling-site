@@ -47,4 +47,4 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: cd seektime.app/ && nohup node server.js &
+          script: cd seektime.app/ && nohup node server.js > /dev/null 2>&1&
