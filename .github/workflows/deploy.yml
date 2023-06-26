@@ -18,7 +18,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          run: pkill -f node
+          script: pkill -f node
 
       - name: Remove old files
         uses: appleboy/ssh-action@master
@@ -26,7 +26,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          run: rm -rf seektime.app/
+          script: rm -rf seektime.app/
 
       - name: Download, install and build
         uses: appleboy/ssh-action@master
@@ -47,4 +47,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          run: cd seektime.app/ && nohup node server.js &
+          script: |
+            cd seektime.app/ 
+            nohup node server.js > nohup.out 2> nohup.err < /dev/null &
+            disown
