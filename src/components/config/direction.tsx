@@ -1,3 +1,4 @@
+import { circOut } from 'framer-motion';
 import { useEffect } from 'react';
 
 const Direction = ({ direction, setDirection, algorithm }) => {
@@ -18,7 +19,13 @@ const Direction = ({ direction, setDirection, algorithm }) => {
   }, [algorithm]);
 
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      className="flex flex-col gap-3"
+      style={{
+        opacity: directionSelectable(algorithm) ? 1 : 0.4,
+        transition: '0.2s cubic-bezier(0, 0.55, 0.45, 1)',
+      }}
+    >
       <p className="text-white text-center font-bold">Head Direction</p>
       <div className="flex flex-wrap gap-2 justify-center">
         {headDirections.map(headDirection => {
