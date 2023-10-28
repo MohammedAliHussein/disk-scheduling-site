@@ -19,7 +19,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <Script
+        {/* <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-CV1QCHS4G2"
         ></Script>
@@ -31,7 +31,7 @@ export default function Document() {
 
             gtag('config', 'G-CV1QCHS4G2');
           `}
-        </Script>
+        </Script> */}
       </body>
     </Html>
   );
