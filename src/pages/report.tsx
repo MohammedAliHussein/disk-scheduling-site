@@ -1,4 +1,27 @@
+import { IssueSeverity, Issue, IssueStatus } from '@/lib/types/issue';
+
 const ReportPage = () => {
+  const issues: Issue[] = [
+    {
+      title: 'Input is not validated',
+      description: 'The input validation is not working.',
+      severity: IssueSeverity.HIGH,
+      status: 'unresolved',
+    },
+    {
+      title: 'Input is not validated',
+      description: 'The input validation is not working.',
+      severity: IssueSeverity.HIGH,
+      status: 'resolved',
+    },
+    {
+      title: 'Input is not validated',
+      description: 'The input validation is not working.',
+      severity: IssueSeverity.HIGH,
+      status: 'unresolved',
+    },
+  ];
+
   return (
     <div className="min-h-screen w-full flex flex-col bg-neutral-950 p-12">
       <p className="text-white text-4xl font-bold">Report an issue</p>
@@ -19,7 +42,24 @@ const ReportPage = () => {
           </div>
         </div>
         <Divider />
+        <div className="w-full flex flex-col grow gap-4">
+          {issues.map((issue: Issue) => {
+            return <Issue {...issue} />;
+          })}
+        </div>
       </div>
+    </div>
+  );
+};
+
+const Issue = (props: Issue) => {
+  return (
+    <div className="w-full flex items-center px-5 justify-between text-white outline outline-1 outline-[rgba(255,255,255,0.05)] h-20 bg-[rgba(0, 0, 0, 1)]">
+      <div className="flex flex-col gap-2">
+        <p className="text-md font-semibold">{props.title}</p>
+        <p className="text-xs opacity-80">{props.description}</p>
+      </div>
+      <p>{props.status}</p>
     </div>
   );
 };
